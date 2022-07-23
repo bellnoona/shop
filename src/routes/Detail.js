@@ -12,23 +12,25 @@ function Detail(props) {
   let { id } = useParams();
   let [count, setCount] = useState(0);
   let [alert, setAlert] = useState(true);
+  let [num, setNum] = useState('');
 
   useEffect(() => {
     setTimeout(() => {
       setAlert(false);
     }, 2000);
-  }, [count]);
 
-  // for (var i = 0; i < 10000; i++) {
-  //   console.log(1);
-  // }
+    return () => {};
+  }, []);
+
+  useEffect(() => {
+    // if (isNaN(num)) {
+    // alert('경고: 숫자만 입력하세요');
+    // }
+  }, [num]);
 
   return (
     <div className='container'>
-      {/* <YellowBtn bg='skyblue'>버튼</YellowBtn> */}
-      {/* <YellowBtn bg='coral'>버튼</YellowBtn> */}
-
-      {alert == true ? (
+      {alert === true ? (
         <div className='alert alert-warning'>2초 이내 구매시 할인</div>
       ) : null}
       {count}
@@ -45,6 +47,12 @@ function Detail(props) {
             src='https://codingapple1.github.io/shop/shoes1.jpg'
             width='100%'
           />
+          <input
+            onChange={(e) => {
+              setNum(e.target.value);
+            }}
+          />
+          {isNaN(num) ? <div>경고: 숫자만 입력하세요 !</div> : <div />}
         </div>
         <div className='col-md-6'>
           <h4 className='pt-5'>{props.pet[id].title}</h4>
