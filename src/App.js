@@ -4,9 +4,10 @@ import './App.css';
 import data from './data.js';
 import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom';
 import Detail from './routes/Detail.js';
+import axios from 'axios';
 
 function App() {
-  let [pet] = useState(data);
+  let [pet, setPet] = useState(data);
   let navigate = useNavigate();
 
   return (
@@ -50,6 +51,21 @@ function App() {
                   })}
                 </div>
               </div>
+              <button
+                onClick={() => {
+                  axios
+                    .get('https://codingapple1.github.io/shop/data2.json')
+                    .then((res) => {
+                      let copy = [...pet, ...res.data];
+                      setPet(copy);
+                    })
+                    .catch(() => {
+                      console.log('실패');
+                    });
+                }}
+              >
+                더보기
+              </button>
             </>
           }
         />
@@ -91,14 +107,8 @@ function Event() {
 function Card(props) {
   return (
     <div className='col-md-4'>
-      {/* <img
-        src='http://avenireve.hgodo.com/data/goods/21/10/40//1000003563/register_detail_091.jpg'
-        width='80%'
-      /> */}
       <img
-        src={
-          'https://codingapple1.github.io/shop/shoes' + (props.i + 1) + '.jpg'
-        }
+        src={`https://codingapple1.github.io/shop/shoes${props.i + 1}.jpg`}
         width='80%'
       />
       <h5>{props.pet.title}</h5>
