@@ -98,21 +98,28 @@ function Detail(props) {
           </Nav.Link>
         </Nav.Item>
       </Nav>
-      <TabContent 탭={탭} />
+      <TabContent pet={props.pet} 탭={탭} />
     </div>
   );
 }
 
-function TabContent({ 탭 }) {
-  if (탭 === 0) {
-    return <div>내용0</div>;
-  }
-  if (탭 === 1) {
-    return <div>내용1</div>;
-  }
-  if (탭 === 2) {
-    return <div>내용2</div>;
-  }
+function TabContent({ 탭, pet }) {
+  let [fade, setFade] = useState('');
+
+  useEffect(() => {
+    setTimeout(() => {
+      setFade('end');
+    }, 10);
+    return () => {
+      setFade('');
+    };
+  }, [탭]);
+
+  return (
+    <div className={`start ${fade}`}>
+      {[<div>{pet[0].title}</div>, <div>내용1</div>, <div>내용2</div>][탭]}
+    </div>
+  );
 }
 
 export default Detail;
