@@ -109,6 +109,7 @@ function Card(props) {
     <div className='col-md-4'>
       <img
         src={`https://codingapple1.github.io/shop/shoes${props.i + 1}.jpg`}
+        alt=''
         width='80%'
       />
       <h5>{props.pet.title}</h5>
