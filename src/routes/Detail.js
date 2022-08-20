@@ -1,20 +1,16 @@
 import { useEffect, useState } from 'react';
-import { Nav } from 'react-bootstrap';
-import { propTypes } from 'react-bootstrap/esm/Image';
 import { useParams } from 'react-router-dom';
+import { Nav } from 'react-bootstrap';
 import styled from 'styled-components';
 
-let YellowBtn = styled.button`
-  background: ${(props) => props.bg};
-  color: ${(props) => (props.bg === 'skyblue' ? 'gray' : 'black')};
-  padding: 10px;
-`;
+import { Context1 } from './../App.js';
+import { useContext } from 'react';
 
 function Detail(props) {
+  let { 재고 } = useContext(Context1);
+
   let { id } = useParams();
-  let [count, setCount] = useState(0);
   let [alert, setAlert] = useState(true);
-  let [num, setNum] = useState('');
   let [탭, 탭변경] = useState(0);
 
   useEffect(() => {
@@ -25,25 +21,11 @@ function Detail(props) {
     return () => {};
   }, []);
 
-  useEffect(() => {
-    // if (isNaN(num)) {
-    // alert('경고: 숫자만 입력하세요');
-    // }
-  }, [num]);
-
   return (
     <div className='container'>
       {alert === true ? (
         <div className='alert alert-warning'>2초 이내 구매시 할인</div>
       ) : null}
-      {/* {count}
-      <button
-        onClick={() => {
-          setCount(count + 1);
-        }}
-      >
-        버튼
-      </button> */}
       <div className='row'>
         <div className='col-md-6'>
           <img
@@ -51,12 +33,6 @@ function Detail(props) {
             alt=''
             width='100%'
           />
-          {/* <input
-            onChange={(e) => {
-              setNum(e.target.value);
-            }}
-          /> */}
-          {isNaN(num) ? <div>경고: 숫자만 입력하세요 !</div> : <div />}
         </div>
         <div className='col-md-6'>
           <h4 className='pt-5'>{props.pet[id].title}</h4>
@@ -98,13 +74,14 @@ function Detail(props) {
           </Nav.Link>
         </Nav.Item>
       </Nav>
-      <TabContent pet={props.pet} 탭={탭} />
+      <TabContent 탭={탭} />
     </div>
   );
 }
 
-function TabContent({ 탭, pet }) {
+function TabContent({ 탭 }) {
   let [fade, setFade] = useState('');
+  let { 재고 } = useContext(Context1);
 
   useEffect(() => {
     setTimeout(() => {
@@ -117,7 +94,7 @@ function TabContent({ 탭, pet }) {
 
   return (
     <div className={`start ${fade}`}>
-      {[<div>{pet[0].title}</div>, <div>내용1</div>, <div>내용2</div>][탭]}
+      {[<div>내용0</div>, <div>내용1</div>, <div>내용2</div>][탭]}
     </div>
   );
 }

@@ -5,9 +5,14 @@ import data from './data.js';
 import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom';
 import Detail from './routes/Detail.js';
 import axios from 'axios';
+import { createContext } from 'react';
+
+export let Context1 = createContext();
 
 function App() {
   let [pet, setPet] = useState(data);
+  let [재고] = useState([10, 11, 12]);
+
   let navigate = useNavigate();
 
   return (
@@ -69,7 +74,14 @@ function App() {
             </>
           }
         />
-        <Route path='/detail/:id' element={<Detail pet={pet} />} />
+        <Route
+          path='/detail/:id'
+          element={
+            <Context1.Provider value={{ 재고 }}>
+              <Detail pet={pet} />
+            </Context1.Provider>
+          }
+        />
 
         <Route path='*' element={<div>없는 페이지입니다.</div>} />
 
