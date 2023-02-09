@@ -4,6 +4,7 @@ import './App.css';
 import data from './data.js';
 import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom';
 import Detail from './routes/Detail.js';
+import Cart from './routes/Cart.js';
 import axios from 'axios';
 import { createContext } from 'react';
 
@@ -82,6 +83,7 @@ function App() {
             </Context1.Provider>
           }
         />
+        <Route path='/cart' element={<Cart />} />
 
         <Route path='*' element={<div>없는 페이지입니다.</div>} />
 
