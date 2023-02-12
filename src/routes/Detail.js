@@ -6,12 +6,16 @@ import styled from 'styled-components';
 import { Context1 } from './../App.js';
 import { useContext } from 'react';
 
+import { addItem } from '../store/cartSlice.js';
+import { useDispatch } from 'react-redux';
+
 function Detail(props) {
   let { 재고 } = useContext(Context1);
 
   let { id } = useParams();
   let [alert, setAlert] = useState(true);
   let [탭, 탭변경] = useState(0);
+  let dispatch = useDispatch();
 
   useEffect(() => {
     setTimeout(() => {
@@ -38,7 +42,14 @@ function Detail(props) {
           <h4 className='pt-5'>{props.pet[id].title}</h4>
           <p>{props.pet[id].content}</p>
           <p>{props.pet[id].price}원</p>
-          <button className='btn btn-danger'>주문하기</button>
+          <button
+            className='btn btn-danger'
+            onClick={() => {
+              dispatch(addItem({ id: 1, name: 'Red Knit', count: 1 }));
+            }}
+          >
+            주문하기
+          </button>
         </div>
       </div>
 
